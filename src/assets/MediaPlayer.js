@@ -2,10 +2,9 @@ class MediaPlayer {
     constructor(config) {
         this.media = config.el
         this.plugins = config.plugins || [];
-
         this._initPlugins();
 
-        this.p = false
+        this.p = true
     }
     play() {
         this.p = true
@@ -14,8 +13,24 @@ class MediaPlayer {
 
     }
     _initPlugins(){
+
+        const player = {
+            pause: () => this.pause(),
+            play: () => this.play(),
+
+            media: this.media,
+            get muted(){
+                return this.media.muted;
+            },
+            set muted(value){
+                    this.media.muted = value;
+              
+            },
+        };
+
+
         this.plugins.forEach(plugin => {
-            plugin.run(this);
+            plugin.run(player);
         });
     }
     pause() {
