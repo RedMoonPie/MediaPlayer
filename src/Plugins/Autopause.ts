@@ -1,14 +1,16 @@
 import MediaPlayer from "../assets/MediaPlayer";
-
+//Plugin Autopause
 class AutoPause {
   private threshold:number;
   player: MediaPlayer
   constructor(){
+    //cuando pasa el 25% de la pagina se activa el handleintersection 
     this.threshold = 0.25 ;
     this.handleIntersection = this.handleIntersection.bind(this)
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this)
   }
-  run(player) {
+  //metodo run que recibe un mediaplayer
+  run(player:MediaPlayer) {
     this.player = player
     const observer = new IntersectionObserver(this.handleIntersection, {
       threshold: this.threshold ,
